@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { Confetti } from '@/components/confetti'
+import { assetPath } from '@/lib/asset-path'
 import { POSES, POSE_GAME_TIME, POSE_PASS_SCORE } from '@/lib/games-data'
 
 function shuffle<T>(arr: T[]): T[] {
@@ -152,7 +153,7 @@ export function PoseMatchGame({
         <div className="flex h-72 items-center justify-center rounded-3xl bg-muted p-2 shadow-sm">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={current.image || '/placeholder.svg'}
+            src={assetPath(current.image || '/placeholder.svg')}
             alt="Aerial pose to identify"
             className="h-full w-auto max-w-full object-contain"
           />

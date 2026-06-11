@@ -1,6 +1,7 @@
 'use client'
 
 import type { ComponentType, SVGProps } from 'react'
+import { assetPath } from '@/lib/asset-path'
 
 type TaskStatus = {
   game1: boolean
@@ -36,7 +37,7 @@ export function Hub({
           <div className="flex h-24 w-24 items-center justify-center rounded-full bg-warm-ivory shadow-md ring-1 ring-bison-hide/30">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/logo.png"
+              src={assetPath('/assets/logo.png')}
               alt="NUS Aerial Sports logo"
               className="h-24 w-24 rounded-full object-contain"
             />

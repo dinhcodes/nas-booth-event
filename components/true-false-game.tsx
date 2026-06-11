@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Confetti } from '@/components/confetti'
+import { assetPath } from '@/lib/asset-path'
 import { TRIVIA, TRIVIA_PASS_SCORE, TRIVIA_TIME_LIMIT } from '@/lib/games-data'
 
 type Phase = 'question' | 'answer' | 'done'
@@ -141,7 +142,7 @@ export function TrueFalseGame({
                 <div className="mt-5 flex h-64 items-center justify-center rounded-2xl bg-muted p-2">
                   {VIDEO_EXTENSIONS.test(current.answerImage) ? (
                     <video
-                      src={current.answerImage}
+                      src={assetPath(current.answerImage)}
                       controls
                       playsInline
                       preload="metadata"
@@ -152,7 +153,7 @@ export function TrueFalseGame({
                   ) : (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                      src={current.answerImage || '/placeholder.svg'}
+                      src={assetPath(current.answerImage || '/placeholder.svg')}
                       alt={current.question}
                       className="h-full w-auto max-w-full object-contain"
                     />

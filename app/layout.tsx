@@ -16,14 +16,16 @@ const lato = Lato({
   display: 'swap',
 })
 
+const iconPath = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/assets/logo.png`
+
 export const metadata: Metadata = {
   title: 'NUS Aerial Sports',
   description:
     'Play, learn, and claim your prize at the NUS Aerial Sports recruitment booth.',
   generator: 'v0.app',
   icons: {
-    icon: '/assets/logo.png',
-    apple: '/assets/logo.png',
+    icon: iconPath,
+    apple: iconPath,
   },
 }
 
