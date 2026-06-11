@@ -1,0 +1,1 @@
+This is a static website made by [dinhcodes](http://github.com/dinhcodes) for NUS Aerial Society's booth events.
