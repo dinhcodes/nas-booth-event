@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Confetti } from '@/components/confetti'
 import { assetPath } from '@/lib/asset-path'
 import { POSES, POSE_GAME_TIME, POSE_PASS_SCORE } from '@/lib/games-data'
@@ -41,30 +41,33 @@ export function PoseMatchGame({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [round])
 
-  // Overall game countdown
-  useEffect(() => {
-    if (phase !== 'playing') return
-    if (timeLeft <= 0) {
+  const advanceRound = useCallback(() => {
+    setSelected(null)
+    if (round + 1 >= POSES.length) {
       setPhase('done')
+    } else {
+      setRound((r) => r + 1)
+      setTimeLeft(POSE_GAME_TIME)
+    }
+  }, [round])
+
+  // Per-pose countdown
+  useEffect(() => {
+    if (phase !== 'playing' || selected) return
+    if (timeLeft <= 0) {
+      advanceRound()
       return
     }
     const t = setTimeout(() => setTimeLeft((s) => s - 1), 1000)
     return () => clearTimeout(t)
-  }, [phase, timeLeft])
+  }, [advanceRound, phase, selected, timeLeft])
 
   function choose(name: string) {
     if (selected) return
     setSelected(name)
     const correct = name === current.name
     if (correct) setScore((s) => s + 1)
-    setTimeout(() => {
-      setSelected(null)
-      if (round + 1 >= POSES.length) {
-        setPhase('done')
-      } else {
-        setRound((r) => r + 1)
-      }
-    }, 700)
+    setTimeout(advanceRound, 700)
   }
 
   // ---- DONE SCREEN ----

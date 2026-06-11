@@ -27,7 +27,7 @@ export type Pose = {
 }
 
 // ---- CHALLENGE 1: AERIAL SPORTS MYTH BUSTERS ----------------
-export const TRIVIA_TIME_LIMIT = 6
+export const TRIVIA_TIME_LIMIT = 15
 
 export const TRIVIA: TriviaQuestion[] = [
   {
@@ -130,8 +130,8 @@ export const POSES: Pose[] = [
   { name: 'Hello Boys', image: '/assets/pose-challenge/hello-boys.jpg' },
 ]
 
-/** Total seconds for the whole Pose Match game */
-export const POSE_GAME_TIME = 20
+/** Seconds allowed for each Pose Match round */
+export const POSE_GAME_TIME = 60
 
 /** Minimum correct matches needed to "pass" Challenge 2 */
 export const POSE_PASS_SCORE = 3
