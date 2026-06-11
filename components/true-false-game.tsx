@@ -7,6 +7,8 @@ import { TRIVIA, TRIVIA_PASS_SCORE, TRIVIA_TIME_LIMIT } from '@/lib/games-data'
 type Phase = 'question' | 'answer' | 'done'
 type AnswerResult = 'correct' | 'incorrect' | 'timeout'
 
+const VIDEO_EXTENSIONS = /\.(mp4|webm|ogg|mov)$/i
+
 export function TrueFalseGame({
   onComplete,
   onBack,
@@ -137,12 +139,24 @@ export function TrueFalseGame({
             {current.answerImage && (
               <>
                 <div className="mt-5 flex h-64 items-center justify-center rounded-2xl bg-muted p-2">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={current.answerImage || '/placeholder.svg'}
-                    alt={current.question}
-                    className="h-full w-auto max-w-full object-contain"
-                  />
+                  {VIDEO_EXTENSIONS.test(current.answerImage) ? (
+                    <video
+                      src={current.answerImage}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      muted
+                      aria-label={current.question}
+                      className="h-full w-auto max-w-full rounded-xl object-contain"
+                    />
+                  ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={current.answerImage || '/placeholder.svg'}
+                      alt={current.question}
+                      className="h-full w-auto max-w-full object-contain"
+                    />
+                  )}
                 </div>
                 {current.answerImageCredit && (
                   <a

@@ -10,7 +10,7 @@ export type TriviaQuestion = {
   answer: boolean
   /** Shown on the answer/explanation screen */
   explanation: string
-  /** Optional image or gif shown at the bottom of the answer screen */
+  /** Optional image, gif, or video shown at the bottom of the answer screen */
   answerImage?: string
   /** Optional credit shown below the answer image */
   answerImageCredit?: {
@@ -30,13 +30,6 @@ export type Pose = {
 export const TRIVIA_TIME_LIMIT = 6
 
 export const TRIVIA: TriviaQuestion[] = [
-  {
-    question: 'Only girls can do aerial sports.',
-    answer: false,
-    explanation:
-      'Boys can do it too. We welcome everyone, regardless of gender, to participate!',
-    answerImage: '/assets/myth-challenge/guy-doing-pole.gif',
-  },
   {
     question: 'It is necessary to strip down in aerial sports.',
     answer: false,
@@ -60,6 +53,7 @@ export const TRIVIA: TriviaQuestion[] = [
     answer: false,
     explanation:
       'While there is always a risk of injury, injuries are fairly uncommon and are of similar levels to most sports. Beginner classes use equipment like crash mats and guidance to keep you safe.',
+    answerImage: '/assets/myth-challenge/safe.mp4',
   },
   {
     question: 'Aerial sports are always sexual in nature.',
@@ -91,11 +85,18 @@ export const TRIVIA: TriviaQuestion[] = [
     },
   },
   {
+    question: 'Only girls can do aerial sports.',
+    answer: false,
+    explanation:
+      'Boys can do it too. We welcome everyone, regardless of gender, to participate!',
+    answerImage: '/assets/myth-challenge/guy-doing-pole.gif',
+  },
+  {
     question: 'You must be flexible to do aerial sports.',
     answer: false,
     explanation:
       'Most tricks, especially beginner to intermediate level tricks, do not require much flexibility. If certain tricks require flexibility, it will be trained alongside technique.',
-    answerImage: '/assets/myth-challenge/flexible.gif',
+    answerImage: '/assets/myth-challenge/flexible.mp4',
   },
   {
     question:
