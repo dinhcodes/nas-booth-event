@@ -21,6 +21,10 @@ export const metadata: Metadata = {
   description:
     'Play, learn, and claim your prize at the NUS Aerial Sports recruitment booth.',
   generator: 'v0.app',
+  icons: {
+    icon: '/assets/logo.png',
+    apple: '/assets/logo.png',
+  },
 }
 
 export default function RootLayout({
