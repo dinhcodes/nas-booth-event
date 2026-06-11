@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[6226,[],""]
+3:I[9616,[],""]
+4:I[8491,["177","static/chunks/app/layout-a50cf243f9156792.js"],"Analytics"]
+:HL["/nas-booth-event/_next/static/css/f1eb1715796b1c21.css","style"]
+0:{"rsc":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/nas-booth-event/_next/static/css/f1eb1715796b1c21.css","precedence":"next"}]],["$","html",null,{"lang":"en","className":"__variable_9d2331 __variable_851980 bg-background","children":["$","body",null,{"className":"font-body antialiased","children":[["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}],["$","$L4",null,{}]]}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"Os1edpARq42yCKJs85t9E"}

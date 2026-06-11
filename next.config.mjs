@@ -1,8 +1,7 @@
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export',
+  basePath: '/nas-booth-event',
+  assetPrefix: '/nas-booth-event/',
   images: {
     unoptimized: true,
   },
