@@ -3,12 +3,31 @@
 import { useEffect, useState } from 'react'
 import { Confetti } from '@/components/confetti'
 import { assetPath } from '@/lib/asset-path'
-import { TRIVIA, TRIVIA_PASS_SCORE, TRIVIA_TIME_LIMIT } from '@/lib/games-data'
+import {
+  TRIVIA,
+  TRIVIA_PASS_SCORE,
+  TRIVIA_QUESTION_COUNT,
+  TRIVIA_TIME_LIMIT,
+  type TriviaQuestion,
+} from '@/lib/games-data'
 
 type Phase = 'question' | 'answer' | 'done'
 type AnswerResult = 'correct' | 'incorrect' | 'timeout'
 
 const VIDEO_EXTENSIONS = /\.(mp4|webm|ogg|mov)$/i
+
+function pickRandomQuestions(): TriviaQuestion[] {
+  const shuffled = [...TRIVIA]
+
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const current = shuffled[i]
+    shuffled[i] = shuffled[j]
+    shuffled[j] = current
+  }
+
+  return shuffled.slice(0, TRIVIA_QUESTION_COUNT)
+}
 
 export function TrueFalseGame({
   onComplete,
@@ -17,13 +36,14 @@ export function TrueFalseGame({
   onComplete: (passed: boolean) => void
   onBack: () => void
 }) {
+  const [questions, setQuestions] = useState(pickRandomQuestions)
   const [index, setIndex] = useState(0)
   const [phase, setPhase] = useState<Phase>('question')
   const [score, setScore] = useState(0)
   const [lastResult, setLastResult] = useState<AnswerResult>('incorrect')
   const [timeLeft, setTimeLeft] = useState(TRIVIA_TIME_LIMIT)
 
-  const current = TRIVIA[index]
+  const current = questions[index]
   const passed = score >= TRIVIA_PASS_SCORE
 
   // Per-question countdown
@@ -45,7 +65,7 @@ export function TrueFalseGame({
   }
 
   function next() {
-    if (index + 1 >= TRIVIA.length) {
+    if (index + 1 >= questions.length) {
       setPhase('done')
       return
     }
@@ -71,7 +91,7 @@ export function TrueFalseGame({
             <p className="font-heading text-6xl text-venus">
               {score}
               <span className="text-2xl text-muted-foreground">
-                /{TRIVIA.length}
+                /{questions.length}
               </span>
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
@@ -94,6 +114,7 @@ export function TrueFalseGame({
                   setIndex(0)
                   setScore(0)
                   setTimeLeft(TRIVIA_TIME_LIMIT)
+                  setQuestions(pickRandomQuestions())
                   setPhase('question')
                 }}
                 className="w-full rounded-full bg-btn px-6 py-4 font-bold text-warm-ivory shadow-md transition active:scale-95"
@@ -118,7 +139,7 @@ export function TrueFalseGame({
     return (
       <div className="min-h-screen bg-hero px-6 py-10">
         <div className="mx-auto flex max-w-md flex-col gap-6 pt-6">
-          <Progress index={index} total={TRIVIA.length} />
+          <Progress index={index} total={questions.length} />
           <div className="animate-pop-in rounded-3xl bg-card p-7 shadow-sm">
             <span
               className={`font-heading text-sm uppercase tracking-[0.25em] ${
@@ -176,7 +197,7 @@ export function TrueFalseGame({
             onClick={next}
             className="w-full rounded-full bg-btn px-6 py-4 font-bold text-warm-ivory shadow-md transition active:scale-95"
           >
-            {index + 1 >= TRIVIA.length ? 'See Results' : 'Next Question'}
+            {index + 1 >= questions.length ? 'See Results' : 'Next Question'}
           </button>
         </div>
       </div>
@@ -189,7 +210,7 @@ export function TrueFalseGame({
     <div className="min-h-screen bg-hero px-6 py-10">
       <div className="mx-auto flex max-w-md flex-col gap-6 pt-6">
         <div className="flex items-center justify-between">
-          <Progress index={index} total={TRIVIA.length} />
+          <Progress index={index} total={questions.length} />
           <div
             className={`flex h-12 w-12 items-center justify-center rounded-full font-heading text-xl font-bold shadow-sm transition ${
               lowTime

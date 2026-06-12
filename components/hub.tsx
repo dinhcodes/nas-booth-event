@@ -2,6 +2,11 @@
 
 import type { ComponentType, SVGProps } from 'react'
 import { assetPath } from '@/lib/asset-path'
+import {
+  TRIVIA_PASS_SCORE,
+  TRIVIA_QUESTION_COUNT,
+  TRIVIA_TIME_LIMIT,
+} from '@/lib/games-data'
 
 type TaskStatus = {
   game1: boolean
@@ -70,7 +75,7 @@ export function Hub({
         <GameCard
           step="Challenge 1"
           title="Aerial Sports Myth Busters"
-          description="Answer 10 true-or-false myths. You have 5 seconds each and need 7 correct to pass."
+          description={`Answer ${TRIVIA_QUESTION_COUNT} random true-or-false myths. You have ${TRIVIA_TIME_LIMIT} seconds each and need ${TRIVIA_PASS_SCORE} correct to pass.`}
           complete={status.game1}
           onClick={onPlayGame1}
         />
