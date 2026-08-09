@@ -48,7 +48,10 @@ export function Hub({
     status.trickTickets +
     (status.game1 ? 1 : 0) +
     (status.game2 ? 1 : 0)
-  const redeemable = Math.min(tickets, MAX_REDEEMABLE)
+  // Following IG + joining Telegram is compulsory — nothing redeems until both are done.
+  const followDone = status.followedIg && status.joinedTelegram
+  const earnedCapped = Math.min(tickets, MAX_REDEEMABLE)
+  const redeemable = followDone ? earnedCapped : 0
 
   return (
     <main className="min-h-screen bg-hero">
@@ -73,13 +76,18 @@ export function Hub({
             <p className="mt-3 text-sm text-muted-foreground">
               Collect tickets for our lucky draw. Tap a task to expand it. You
               can redeem up to {MAX_REDEEMABLE} tickets — show this screen to our
-              members.
+              members. Following us on Instagram <em>and</em> joining our
+              Telegram is required to redeem.
             </p>
           </div>
         </header>
 
         {/* Ticket counter — stays visible while scrolling */}
-        <section className="sticky top-4 z-10 rounded-3xl bg-card/90 px-6 py-4 text-center shadow-md backdrop-blur">
+        <section
+          className={`sticky top-4 z-10 rounded-3xl px-6 py-4 text-center shadow-md backdrop-blur ${
+            followDone ? 'bg-card/90' : 'bg-card/90 ring-2 ring-red-500/40'
+          }`}
+        >
           <p className="font-heading text-3xl text-matterhorn">
             🎫 {redeemable}
             <span className="text-xl text-matterhorn/50">
@@ -88,9 +96,13 @@ export function Hub({
             </span>
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {tickets > MAX_REDEEMABLE
-              ? `You earned ${tickets} — ${MAX_REDEEMABLE} is the max you can redeem.`
-              : 'Redeemable at the booth.'}
+            {!followDone
+              ? `🔒 Required: follow us on IG + join our Telegram to unlock redemption${
+                  earnedCapped > 0 ? ` (you've earned ${earnedCapped})` : ''
+                }.`
+              : tickets > MAX_REDEEMABLE
+                ? `You earned ${tickets} — ${MAX_REDEEMABLE} is the max you can redeem.`
+                : 'Redeemable at the booth.'}
           </p>
         </section>
 
@@ -100,7 +112,7 @@ export function Hub({
           ticketText="1 ticket"
           earned={followTicket}
           max={1}
-          recommended
+          required
           defaultOpen
         >
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
@@ -202,6 +214,7 @@ function TicketCard({
   earned,
   max,
   recommended,
+  required,
   defaultOpen,
   children,
 }: {
@@ -210,6 +223,7 @@ function TicketCard({
   earned: number
   max: number
   recommended?: boolean
+  required?: boolean
   defaultOpen?: boolean
   children: ReactNode
 }) {
@@ -232,11 +246,15 @@ function TicketCard({
     >
       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-6 [&::-webkit-details-marker]:hidden">
         <div className="min-w-0">
-          {recommended && (
+          {required ? (
+            <span className="mb-1 inline-block rounded-full bg-red-500/15 px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-red-600 ring-1 ring-red-500/30">
+              🔒 Required
+            </span>
+          ) : recommended ? (
             <span className="mb-1 inline-block rounded-full bg-venus/15 px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wide text-venus">
               ★ Recommended
             </span>
-          )}
+          ) : null}
           <h2 className="font-heading text-xl leading-tight text-matterhorn">
             {title}
           </h2>
