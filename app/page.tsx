@@ -13,6 +13,8 @@ export default function Page() {
   const [game2, setGame2] = useState(false)
   const [followedIg, setFollowedIg] = useState(false)
   const [joinedTelegram, setJoinedTelegram] = useState(false)
+  const [storyPosted, setStoryPosted] = useState(false)
+  const [trickTickets, setTrickTickets] = useState(0)
 
   if (screen === 'game1') {
     return (
@@ -40,11 +42,20 @@ export default function Page() {
 
   return (
     <Hub
-      status={{ game1, game2, followedIg, joinedTelegram }}
+      status={{
+        game1,
+        game2,
+        followedIg,
+        joinedTelegram,
+        storyPosted,
+        trickTickets,
+      }}
       onPlayGame1={() => setScreen('game1')}
       onPlayGame2={() => setScreen('game2')}
       onToggleIg={() => setFollowedIg((v) => !v)}
       onToggleTelegram={() => setJoinedTelegram((v) => !v)}
+      onToggleStory={() => setStoryPosted((v) => !v)}
+      onSetTrickTickets={setTrickTickets}
     />
   )
 }
