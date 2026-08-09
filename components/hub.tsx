@@ -51,7 +51,6 @@ export function Hub({
   // Following IG + joining Telegram is compulsory — nothing redeems until both are done.
   const followDone = status.followedIg && status.joinedTelegram
   const earnedCapped = Math.min(tickets, MAX_REDEEMABLE)
-  const redeemable = followDone ? earnedCapped : 0
 
   return (
     <main className="min-h-screen bg-hero">
@@ -75,9 +74,7 @@ export function Hub({
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
               Collect tickets for our lucky draw. Tap a task to expand it. You
-              can redeem up to {MAX_REDEEMABLE} tickets — show this screen to our
-              members. Following us on Instagram <em>and</em> joining our
-              Telegram is required to redeem.
+              can redeem up to {MAX_REDEEMABLE} tickets. Talk to NAS members if you need help.
             </p>
           </div>
         </header>
@@ -89,7 +86,7 @@ export function Hub({
           }`}
         >
           <p className="font-heading text-3xl text-matterhorn">
-            🎫 {redeemable}
+            🎫 {earnedCapped}
             <span className="text-xl text-matterhorn/50">
               {' '}
               / {MAX_REDEEMABLE} tickets
@@ -97,9 +94,7 @@ export function Hub({
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
             {!followDone
-              ? `🔒 Required: follow us on IG + join our Telegram to unlock redemption${
-                  earnedCapped > 0 ? ` (you've earned ${earnedCapped})` : ''
-                }.`
+              ? '🔒 Required: follow us on IG + join our Telegram to unlock redemption.'
               : tickets > MAX_REDEEMABLE
                 ? `You earned ${tickets} — ${MAX_REDEEMABLE} is the max you can redeem.`
                 : 'Redeemable at the booth.'}
