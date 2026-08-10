@@ -20,7 +20,7 @@ type TaskStatus = {
 
 // Placeholder links — swap these for the real ones later.
 const INSTAGRAM_URL = 'https://www.instagram.com/NUS.AERIALSPORTS/'
-const TELEGRAM_URL = 'https://t.me/+2rtzn9qbkJs5NWY1'
+const TELEGRAM_URL = 'https://t.me/nus_aerial_sports'
 
 const MAX_REDEEMABLE = 3
 
