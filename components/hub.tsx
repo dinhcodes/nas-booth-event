@@ -170,7 +170,7 @@ export function Hub({
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
             Answer {TRIVIA_QUESTION_COUNT} true-or-false myths. You have{' '}
             {TRIVIA_TIME_LIMIT} seconds each and need {TRIVIA_PASS_SCORE} correct
-            to claim your ticket.
+            to win.
           </p>
           <PlayButton complete={status.game1} onClick={onPlayGame1} />
         </TicketCard>
@@ -184,7 +184,7 @@ export function Hub({
         >
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
             Match 5 aerial tricks to their correct names. Get {POSE_PASS_SCORE}{' '}
-            out of 5 correct to claim your ticket.
+            out of 5 correct to win.
           </p>
           <PlayButton complete={status.game2} onClick={onPlayGame2} />
         </TicketCard>
