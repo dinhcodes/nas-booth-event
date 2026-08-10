@@ -45,9 +45,7 @@ export function Hub({
   const tickets =
     followTicket +
     (status.storyPosted ? 1 : 0) +
-    status.trickTickets +
-    (status.game1 ? 1 : 0) +
-    (status.game2 ? 1 : 0)
+    status.trickTickets
   // Following IG + joining Telegram is compulsory — nothing redeems until both are done.
   const followDone = status.followedIg && status.joinedTelegram
   const earnedCapped = Math.min(tickets, MAX_REDEEMABLE)
@@ -170,12 +168,12 @@ export function Hub({
           />
         </TicketCard>
 
-        {/* 4. Myth Busters game → 1 ticket */}
+        {/* 4. Myth Busters game → just for fun, no tickets */}
         <TicketCard
           title="Aerial Sports Myth Busters"
-          ticketText="1 ticket"
-          earned={status.game1 ? 1 : 0}
-          max={1}
+          ticketText="Just for fun"
+          earned={0}
+          max={0}
         >
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
             Answer {TRIVIA_QUESTION_COUNT} true-or-false myths. You have{' '}
@@ -185,12 +183,12 @@ export function Hub({
           <PlayButton complete={status.game1} onClick={onPlayGame1} />
         </TicketCard>
 
-        {/* 5. Match Pose to Name game → 1 ticket */}
+        {/* 5. Match Pose to Name game → just for fun, no tickets */}
         <TicketCard
           title="Match Pose to Name"
-          ticketText="1 ticket"
-          earned={status.game2 ? 1 : 0}
-          max={1}
+          ticketText="Just for fun"
+          earned={0}
+          max={0}
         >
           <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
             Match 5 aerial tricks to their correct names. Get {POSE_PASS_SCORE}{' '}
@@ -222,7 +220,7 @@ function TicketCard({
   defaultOpen?: boolean
   children: ReactNode
 }) {
-  const done = earned >= max
+  const done = max > 0 && earned >= max
   const badge = done
     ? `${earned} 🎫 claimed`
     : earned > 0
