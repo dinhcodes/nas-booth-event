@@ -46,8 +46,6 @@ export function Hub({
     followTicket +
     (status.storyPosted ? 1 : 0) +
     status.trickTickets
-  // Following IG + joining Telegram is compulsory — nothing redeems until both are done.
-  const followDone = status.followedIg && status.joinedTelegram
   const earnedCapped = Math.min(tickets, MAX_REDEEMABLE)
 
   return (
@@ -78,11 +76,7 @@ export function Hub({
         </header>
 
         {/* Ticket counter — stays visible while scrolling */}
-        <section
-          className={`sticky top-4 z-10 rounded-3xl px-6 py-4 text-center shadow-md backdrop-blur ${
-            followDone ? 'bg-card/90' : 'bg-card/90 ring-2 ring-red-500/40'
-          }`}
-        >
+        <section className="sticky top-4 z-10 rounded-3xl bg-card/90 px-6 py-4 text-center shadow-md backdrop-blur">
           <p className="font-heading text-3xl text-matterhorn">
             🎫 {earnedCapped}
             <span className="text-xl text-matterhorn/50">
@@ -91,11 +85,9 @@ export function Hub({
             </span>
           </p>
           <p className="mt-1 text-xs text-muted-foreground">
-            {!followDone
-              ? '🔒 Required: follow us on IG + join our Telegram to unlock redemption.'
-              : tickets > MAX_REDEEMABLE
-                ? `You earned ${tickets} — ${MAX_REDEEMABLE} is the max you can redeem.`
-                : 'Redeemable at the booth.'}
+            {tickets > MAX_REDEEMABLE
+              ? `You earned ${tickets} — ${MAX_REDEEMABLE} is the max you can redeem.`
+              : 'Redeemable at the booth.'}
           </p>
         </section>
 
