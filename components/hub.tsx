@@ -21,6 +21,7 @@ type TaskStatus = {
 // Placeholder links — swap these for the real ones later.
 const INSTAGRAM_URL = 'https://www.instagram.com/NUS.AERIALSPORTS/'
 const TELEGRAM_URL = 'https://t.me/nus_aerial_sports'
+const MAUVE_POLE_TRIAL_URL = 'https://forms.cloud.microsoft/r/jm35wJp2sw'
 
 const MAX_REDEEMABLE = 3
 
@@ -158,6 +159,25 @@ export function Hub({
             checked={status.storyPosted}
             onToggle={onToggleStory}
           />
+        </TicketCard>
+
+        <TicketCard
+          title="$15 Pole Trial with Mauve"
+          ticketText="Sign up"
+          earned={0}
+          max={0}
+        >
+          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+            Sign up for a $15 pole trial with our partner studio, Mauve.
+          </p>
+          <a
+            href={MAUVE_POLE_TRIAL_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="block w-full rounded-full bg-btn px-6 py-3.5 text-center font-bold text-warm-ivory shadow-md transition active:scale-95"
+          >
+            Sign up for the pole trial
+          </a>
         </TicketCard>
 
         {/* 4. Myth Busters game → just for fun, no tickets */}
